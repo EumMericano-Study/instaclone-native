@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
+import LoggedOutNav from "./navigators/LoggedOutNav";
 
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,19 +27,5 @@ export default function App() {
         onFinish={onFinish}
       />
     );
-  return (
-    <View style={styles.container}>
-      <Text>Hello!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <LoggedOutNav />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

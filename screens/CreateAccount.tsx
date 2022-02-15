@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Welcome() {
+export default function CreateAccount() {
   return (
     <View>
-      <Text>Welcome</Text>
+      <Text>CreateAccount</Text>
     </View>
   );
 }
