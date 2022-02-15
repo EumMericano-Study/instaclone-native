@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
+import { Asset } from "expo-asset";
 
 export default function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -13,7 +14,10 @@ export default function App() {
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
 
-    await Promise.all([...fontPromises]);
+    const imagesToLoad = [require("./assets/charLogo.png")];
+    const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image));
+
+    await Promise.all([...fontPromises, ...imagePromises]);
   };
 
   if (loading)
