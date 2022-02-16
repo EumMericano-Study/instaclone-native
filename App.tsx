@@ -28,6 +28,7 @@ export default function App() {
         onFinish={onFinish}
       />
     );
+
   return (
     <NavigationContainer>
       <LoggedOutNav />

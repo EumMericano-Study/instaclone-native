@@ -12,7 +12,11 @@ export default function LoggedOutNav() {
     <Stack.Navigator
       screenOptions={{ headerBackTitleVisible: false, headerTintColor: "gray" }}
     >
-      <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen
+        name="Welcome"
+        options={{ headerShown: false }}
+        component={Welcome}
+      />
       <Stack.Screen
         name="LogIn"
         options={{
