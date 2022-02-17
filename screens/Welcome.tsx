@@ -10,11 +10,9 @@ export default function Welcome({ navigation }: Props) {
   return (
     <Container>
       <Logo resizeMode="contain" source={require("../assets/charLogo.png")} />
-      <TouchableOpacity onPress={goToCreateAccount}>
-        <CreateAccount>
-          <CreateAccountText>Create Account</CreateAccountText>
-        </CreateAccount>
-      </TouchableOpacity>
+      <CreateAccount disabled={false} onPress={goToCreateAccount}>
+        <CreateAccountText>Create Account</CreateAccountText>
+      </CreateAccount>
       <TouchableOpacity onPress={goToLogIn}>
         <LoginLink>Log In</LoginLink>
       </TouchableOpacity>
@@ -28,26 +26,33 @@ const Container = styled.View`
   align-items: center;
 
   background-color: black;
+
+  padding: 0px 30px;
 `;
 
 const Logo = styled.Image`
   max-width: 50%;
-  height: 200px;
+  height: 150px;
 `;
 
-const CreateAccount = styled.View`
+const CreateAccount = styled.TouchableOpacity`
+  width: 100%;
   background-color: ${colors.blue};
-  padding: 7px 10px;
+
+  opacity: ${(props: { disabled: boolean }) => (props.disabled ? "0.5" : "1")};
+
+  padding: 13px 10px;
   border-radius: 3px;
 `;
 
 const CreateAccountText = styled.Text`
   color: white;
+  text-align: center;
 `;
 
 const LoginLink = styled.Text`
   font-weight: 600;
   color: ${colors.blue};
 
-  margin-top: 25px;
+  margin-top: 15px;
 `;
