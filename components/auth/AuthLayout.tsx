@@ -7,7 +7,10 @@ interface Prop {
 export default function AuthLayout({ children }: Prop) {
   return (
     <Container>
-      <Logo resizeMode="contain" source={require("../assets/charLogo.png")} />
+      <Logo
+        resizeMode="contain"
+        source={require("../../assets/charLogo.png")}
+      />
       {children}
     </Container>
   );
