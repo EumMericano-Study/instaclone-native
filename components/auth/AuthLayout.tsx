@@ -1,3 +1,4 @@
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 
 interface Prop {
@@ -5,14 +6,18 @@ interface Prop {
 }
 
 export default function AuthLayout({ children }: Prop) {
+  const dismissKeyboard = () => Keyboard.dismiss();
+
   return (
-    <Container>
-      <Logo
-        resizeMode="contain"
-        source={require("../../assets/charLogo.png")}
-      />
-      {children}
-    </Container>
+    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={dismissKeyboard}>
+      <Container>
+        <Logo
+          resizeMode="contain"
+          source={require("../../assets/charLogo.png")}
+        />
+        {children}
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }
 
