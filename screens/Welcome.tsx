@@ -15,7 +15,7 @@ export default function Welcome({ navigation }: Props) {
       <AuthButton
         onPress={goToCreateAccount}
         disabled={false}
-        text="새로 계정 만들기"
+        text="Create New Account"
       />
       <TouchableOpacity onPress={goToLogIn}>
         <LoginLink>Log In</LoginLink>
