@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
-import styled from "styled-components/native";
 
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
+import { StyledTextInput } from "../components/auth/AuthShared";
 
 export default function CreateAccount() {
   const lastNameRef = useRef<TextInput>(null);
@@ -24,48 +24,44 @@ export default function CreateAccount() {
           width: "100%",
         }}
         behavior="padding"
-        keyboardVerticalOffset={Platform.OS === "ios" ? 30 : 0}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
       >
-        <TextInput
+        <StyledTextInput
           autoFocus
           placeholder="First Name"
-          placeholderTextColor="gray"
+          placeholderTextColor="rgba(255,255,255,0.8)"
           returnKeyType="next"
-          style={{ width: "100%", backgroundColor: "white" }}
           onSubmitEditing={() => onNext(lastNameRef)}
         />
-        <TextInput
+        <StyledTextInput
           ref={lastNameRef}
           placeholder="Last Name"
-          placeholderTextColor="gray"
+          placeholderTextColor="rgba(255,255,255,0.8)"
           returnKeyType="next"
-          style={{ width: "100%", backgroundColor: "white" }}
           onSubmitEditing={() => onNext(usernameRef)}
         />
-        <TextInput
+        <StyledTextInput
           ref={usernameRef}
           placeholder="Username"
-          placeholderTextColor="gray"
+          placeholderTextColor="rgba(255,255,255,0.8)"
           returnKeyType="next"
-          style={{ width: "100%", backgroundColor: "white" }}
           onSubmitEditing={() => onNext(emailRef)}
         />
-        <TextInput
+        <StyledTextInput
           ref={emailRef}
           placeholder="Email"
-          placeholderTextColor="gray"
+          placeholderTextColor="rgba(255,255,255,0.8)"
           keyboardType="email-address"
           returnKeyType="next"
-          style={{ width: "100%", backgroundColor: "white" }}
           onSubmitEditing={() => onNext(passwordRef)}
         />
-        <TextInput
+        <StyledTextInput
           ref={passwordRef}
           placeholder="Password"
-          placeholderTextColor="gray"
+          placeholderTextColor="rgba(255,255,255,0.8)"
           secureTextEntry
           returnKeyType="done"
-          style={{ width: "100%", backgroundColor: "white" }}
+          lastOne={true}
           onSubmitEditing={onDone}
         />
         <AuthButton

@@ -21,7 +21,7 @@ const Button = styled.TouchableOpacity`
 
   opacity: ${(props: { disabled: boolean }) => (props.disabled ? "0.5" : "1")};
 
-  padding: 13px 10px;
+  padding: 15px 10px;
   border-radius: 3px;
 `;
 
