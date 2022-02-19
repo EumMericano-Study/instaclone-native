@@ -1,4 +1,9 @@
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import {
+  Keyboard,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import styled from "styled-components/native";
 
 interface Prop {
@@ -9,13 +14,25 @@ export default function AuthLayout({ children }: Prop) {
   const dismissKeyboard = () => Keyboard.dismiss();
 
   return (
-    <TouchableWithoutFeedback style={{ flex: 1 }} onPress={dismissKeyboard}>
+    <TouchableWithoutFeedback
+      style={{ flex: 1 }}
+      onPress={dismissKeyboard}
+      disabled={Platform.OS === "web"}
+    >
       <Container>
-        <Logo
-          resizeMode="contain"
-          source={require("../../assets/charLogo.png")}
-        />
-        {children}
+        <KeyboardAvoidingView
+          style={{
+            width: "100%",
+          }}
+          behavior="position"
+          keyboardVerticalOffset={Platform.OS === "ios" ? 50 : 0}
+        >
+          <Logo
+            resizeMode="contain"
+            source={require("../../assets/charLogo.png")}
+          />
+          {children}
+        </KeyboardAvoidingView>
       </Container>
     </TouchableWithoutFeedback>
   );
