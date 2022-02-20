@@ -32,7 +32,7 @@ export default function LogIn() {
         returnKeyType="next"
         autoCapitalize="none"
         onSubmitEditing={() => onNext(passwordRef)}
-        onChangeText={(text: string) => setValue("Username", text)}
+        onChangeText={(text: string) => setValue("userame", text)}
       />
       <StyledTextInput
         ref={passwordRef}
@@ -43,7 +43,7 @@ export default function LogIn() {
         autoCapitalize="none"
         lastOne={true}
         onSubmitEditing={handleSubmit(onValid)}
-        onChangeText={(text: string) => setValue("Password", text)}
+        onChangeText={(text: string) => setValue("password", text)}
       />
       <AuthButton
         text="Create Account"
