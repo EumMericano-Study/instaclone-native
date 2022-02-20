@@ -19,8 +19,12 @@ export default function LogIn() {
   };
 
   useEffect(() => {
-    register("userame");
-    register("password");
+    register("userame", {
+      required: true,
+    });
+    register("password", {
+      required: true,
+    });
   }, [register]);
 
   return (
@@ -43,7 +47,6 @@ export default function LogIn() {
         autoCapitalize="none"
         lastOne={true}
         onSubmitEditing={handleSubmit(onValid)}
-        onChangeText={(text: string) => setValue("password", text)}
       />
       <AuthButton
         text="Create Account"
