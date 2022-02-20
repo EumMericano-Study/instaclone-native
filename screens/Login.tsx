@@ -1,3 +1,4 @@
+import { gql, useMutation } from "@apollo/client";
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { TextInput } from "react-native";
@@ -6,20 +7,42 @@ import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { StyledTextInput } from "../components/auth/AuthShared";
 
-export default function LogIn() {
-  const { register, handleSubmit, setValue } = useForm();
+const LOGIN_MUTATION = gql`
+  mutation login($userName: String!, $password: String!) {
+    login(userName: $userName, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
 
+export default function LogIn() {
+  const { register, handleSubmit, setValue, watch } = useForm();
   const passwordRef = useRef<TextInput>(null);
+
+  const onCompleted = (data: any) => {
+    console.log(data);
+  };
+  const [logInMutation, { loading }] = useMutation(LOGIN_MUTATION, {
+    onCompleted,
+  });
 
   const onNext = (nextOne: React.RefObject<TextInput>) =>
     nextOne?.current?.focus();
 
   const onValid = (data: { [x: string]: string }) => {
-    console.log(data);
+    if (!loading) {
+      logInMutation({
+        variables: {
+          ...data,
+        },
+      });
+    }
   };
 
   useEffect(() => {
-    register("userame", {
+    register("userName", {
       required: true,
     });
     register("password", {
@@ -36,7 +59,7 @@ export default function LogIn() {
         returnKeyType="next"
         autoCapitalize="none"
         onSubmitEditing={() => onNext(passwordRef)}
-        onChangeText={(text: string) => setValue("userame", text)}
+        onChangeText={(text: string) => setValue("userName", text)}
       />
       <StyledTextInput
         ref={passwordRef}
@@ -47,10 +70,12 @@ export default function LogIn() {
         autoCapitalize="none"
         lastOne={true}
         onSubmitEditing={handleSubmit(onValid)}
+        onChangeText={(text: string) => setValue("password", text)}
       />
       <AuthButton
         text="Create Account"
-        disabled={false}
+        disabled={!watch("userName") || !watch("password")}
+        loading={loading}
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>
