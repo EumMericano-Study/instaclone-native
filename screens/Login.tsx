@@ -14,13 +14,13 @@ export default function LogIn() {
   const onNext = (nextOne: React.RefObject<TextInput>) =>
     nextOne?.current?.focus();
 
-  const onValid = (data: any) => {
+  const onValid = (data: { [x: string]: string }) => {
     console.log(data);
   };
 
   useEffect(() => {
-    register("Username");
-    register("Password");
+    register("userame");
+    register("password");
   }, [register]);
 
   return (
@@ -30,6 +30,7 @@ export default function LogIn() {
         placeholder="Username"
         placeholderTextColor="rgba(255,255,255,0.8)"
         returnKeyType="next"
+        autoCapitalize="none"
         onSubmitEditing={() => onNext(passwordRef)}
         onChangeText={(text: string) => setValue("Username", text)}
       />
@@ -39,13 +40,14 @@ export default function LogIn() {
         placeholderTextColor="rgba(255,255,255,0.8)"
         secureTextEntry
         returnKeyType="done"
+        autoCapitalize="none"
         lastOne={true}
         onSubmitEditing={handleSubmit(onValid)}
         onChangeText={(text: string) => setValue("Password", text)}
       />
       <AuthButton
         text="Create Account"
-        disabled={true}
+        disabled={false}
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>

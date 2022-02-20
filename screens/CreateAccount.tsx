@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
 import { TextInput } from "react-native";
 
 import AuthButton from "../components/auth/AuthButton";
@@ -6,6 +7,7 @@ import AuthLayout from "../components/auth/AuthLayout";
 import { StyledTextInput } from "../components/auth/AuthShared";
 
 export default function CreateAccount() {
+  const { register, handleSubmit, setValue } = useForm();
   const lastNameRef = useRef<TextInput>(null);
   const usernameRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
@@ -14,7 +16,17 @@ export default function CreateAccount() {
   const onNext = (nextOne: React.RefObject<TextInput>) =>
     nextOne?.current?.focus();
 
-  const onDone = () => alert("done");
+  const onValid = (data: { [x: string]: string }) => {
+    console.log(data);
+  };
+
+  useEffect(() => {
+    register("firstname");
+    register("lastname");
+    register("username");
+    register("email");
+    register("password");
+  }, [register]);
 
   return (
     <AuthLayout>
@@ -24,6 +36,7 @@ export default function CreateAccount() {
         placeholderTextColor="rgba(255,255,255,0.8)"
         returnKeyType="next"
         onSubmitEditing={() => onNext(lastNameRef)}
+        onChangeText={(text: string) => setValue("firstname", text)}
       />
       <StyledTextInput
         ref={lastNameRef}
@@ -31,6 +44,7 @@ export default function CreateAccount() {
         placeholderTextColor="rgba(255,255,255,0.8)"
         returnKeyType="next"
         onSubmitEditing={() => onNext(usernameRef)}
+        onChangeText={(text: string) => setValue("lastname", text)}
       />
       <StyledTextInput
         ref={usernameRef}
@@ -38,6 +52,7 @@ export default function CreateAccount() {
         placeholderTextColor="rgba(255,255,255,0.8)"
         returnKeyType="next"
         onSubmitEditing={() => onNext(emailRef)}
+        onChangeText={(text: string) => setValue("username", text)}
       />
       <StyledTextInput
         ref={emailRef}
@@ -46,6 +61,7 @@ export default function CreateAccount() {
         keyboardType="email-address"
         returnKeyType="next"
         onSubmitEditing={() => onNext(passwordRef)}
+        onChangeText={(text: string) => setValue("email", text)}
       />
       <StyledTextInput
         ref={passwordRef}
@@ -54,9 +70,14 @@ export default function CreateAccount() {
         secureTextEntry
         returnKeyType="done"
         lastOne={true}
-        onSubmitEditing={onDone}
+        onSubmitEditing={handleSubmit(onValid)}
+        onChangeText={(text: string) => setValue("password", text)}
       />
-      <AuthButton text="Create Account" disabled={true} onPress={() => null} />
+      <AuthButton
+        text="Create Account"
+        disabled={true}
+        onPress={handleSubmit(onValid)}
+      />
     </AuthLayout>
   );
 }
