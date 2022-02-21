@@ -24,7 +24,7 @@ export default function LogIn() {
 
   const onCompleted = (data: any) => {
     const {
-      login: { ok, tokken },
+      login: { ok, token },
     } = data;
     if (ok) {
       isLoggedInVar(true);
