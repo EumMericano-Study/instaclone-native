@@ -18,17 +18,17 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function LogIn() {
-  const { register, handleSubmit, setValue, watch } = useForm();
+export default function LogIn({ route: { params } }: any) {
+  const { register, handleSubmit, setValue, watch } = useForm({
+    defaultValues: { password: params?.password, userName: params?.userName },
+  });
   const passwordRef = useRef<TextInput>(null);
 
   const onCompleted = (data: any) => {
     const {
       login: { ok, token },
     } = data;
-    if (ok) {
-      isLoggedInVar(true);
-    }
+    if (ok) isLoggedInVar(true);
   };
   const [logInMutation, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted,
@@ -59,6 +59,7 @@ export default function LogIn() {
   return (
     <AuthLayout>
       <StyledTextInput
+        value={watch("userName")}
         auttoFocus
         placeholder="Username"
         placeholderTextColor="rgba(255,255,255,0.8)"
@@ -68,6 +69,7 @@ export default function LogIn() {
         onChangeText={(text: string) => setValue("userName", text)}
       />
       <StyledTextInput
+        value={watch("password")}
         ref={passwordRef}
         placeholder="Password"
         placeholderTextColor="rgba(255,255,255,0.8)"
